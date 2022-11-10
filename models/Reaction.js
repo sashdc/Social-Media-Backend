@@ -13,7 +13,7 @@ const reactionSchema = new Schema(
       maxlength: 280,
       minlength: 1,
     },
-    userName: {
+    username: {
       type: String,
       required : true,
     },
@@ -24,9 +24,7 @@ const reactionSchema = new Schema(
     
   },
   {
-    toJSON: {
-      virtuals: true,
-    },
+   
     id: false,
   }
 );

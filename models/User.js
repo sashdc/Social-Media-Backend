@@ -2,7 +2,7 @@ const { Schema, Types } = require('mongoose');
 
 const userSchema = new Schema(
   {
-      userName: {
+      username: {
       type: String,
       required: true,
       unique : true,
@@ -12,8 +12,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique : true,
-      match: /.+\@.+\..+/
-    },
+      validate: { 
+        validator: function(v) {
+            return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(v);
+        }
+    }},
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -38,5 +41,8 @@ const userSchema = new Schema(
 userSchema.virtual('No. of Friends').get(function () {
   return this.friends.length;
 });
+
+const User = model('user', userSchema);
+
 
 module.exports = userSchema;

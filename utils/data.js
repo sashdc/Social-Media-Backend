@@ -1,10 +1,3 @@
-const users : [
-  {username:"jeff", email:"jeff@jeff.com"
-  }
-
-
-];
-
 
 
 // Get a random item given an array
