@@ -1,7 +1,34 @@
 const { Schema, model } = require('mongoose');
-const { reactionSchema } = require('./Reaction');
+// const { reactionSchema } = require('./Reaction');
 const moment = require("moment");
 
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody:{
+      type: String,
+      required : true,
+      maxlength: 280,
+      minlength: 1,
+    },
+    username: {
+      type: String,
+      required : true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timeStamp) =>  moment(timeStamp).format('DD MM, YYYY [at] hh:mm a')
+    },    
+  },
+  {
+   
+    id: false,
+  }
+);
 
 // Schema to create Student model
 const thoughtSchema = new Schema(
@@ -15,7 +42,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (timeStamp) => { moment(timeStamp).format('DD MM, YYYY [at] hh:mm')}
+      get: (now) =>  {moment(now).format('DD MM, YYYY')}
     },
     username: 
       {
@@ -35,38 +62,12 @@ const thoughtSchema = new Schema(
   }
 );
 
-// const reactionSchema = new Schema(
-//   {
-//     reactionId: {
-//       type: Schema.Types.ObjectId,
-//       default: () => new Types.ObjectId(),
-//     },
-//     reactionBody:{
-//       type: String,
-//       required : true,
-//       maxlength: 280,
-//       minlength: 1,
-//     },
-//     username: {
-//       type: String,
-//       required : true,
-//     },
-//     createdAt: {
-//       type: Date,
-//       default: Date.now,
-//     },
-    
-//   },
-//   {
-//         id: false,
-//   }
-// );
 
 thoughtSchema.virtual('No. of Reactions').get(function () {
   return this.reactions.length;
 });
 
 const Thought = model('thought', thoughtSchema);
-// const Reaction = model('reaction', reactionSchema);
+const Reaction = model('reaction', reactionSchema);
 
-module.exports =  Thought;
+module.exports = Thought;

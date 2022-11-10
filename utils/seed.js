@@ -1,18 +1,21 @@
 const connection = require('../config/connection');
-const { User, Thought, } = require('../models');
+const { User, Thought, Reaction } = require('../models');
+// const { Thought, Reaction } = require('../models/Thought.js');
+
+const now = new Date()
 
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
   console.log('connected');
 
-  // Drop existing courses
+  // Drop existing users
   await User.deleteMany({});
 
-  // Drop existing students
+  // Drop existing thoughts
   await Thought.deleteMany({});
+  
 
-  // Create empty array to hold the students
   const users = [ 
      {username:"jeff", email:"jeff@jeff.com"},
      {username:"lisa", email:"lisa@gmail.com"},
@@ -23,19 +26,18 @@ connection.once('open', async () => {
      {username:"jeffthe2", email:"jeff2@notjeff.com"},
      {username:"evilyn", email:"evil@apple.com"},
      {username:"adamant", email:"adam@nt.com"},
-     {username:"keerio", email:"jeff@jeff.com"},
+     {username:"keerio", email:"keff@jeff.com"},
      {username:"ffej", email:"what@joke.com"},
                 ];
   const thoughts = [
-    {thoughtText:"i have feelings!", username:"jeff"},
-    {thoughtText:"i have thoughts!", username:"ekkley"},
-    {thoughtText:"I ate a thing, ya me.", username:"kravanz"},
-    {thoughtText:"Please validate me.", username:"evilyn"},
-    {thoughtText:"i am offended", username:"jeff"},
-    {thoughtText:"i am defended", username:"keerio"},
-    {thoughtText:"i am unfriended", username:"lisa"},
-    {thoughtText:"i have indigestion!", username:"ekkley"},
-
+    {thoughtText:"i have feelings!", createdAt: now, username:"jeff"},
+    {thoughtText:"i have thoughts!",createdAt: now, username:"ekkley"},
+    {thoughtText:"I ate a thing, ya me.",createdAt: now, username:"kravanz"},
+    {thoughtText:"Please validate me.",createdAt: now, username:"evilyn"},
+    {thoughtText:"i am offended",createdAt: now, username:"jeff"},
+    {thoughtText:"i am defended",createdAt: now, username:"keerio"},
+    {thoughtText:"i am unfriended",createdAt: now, username:"lisa"},
+    {thoughtText:"i have indigestion!",createdAt: now, username:"ekkley"},
   ];
 
 const reactions =[
@@ -47,17 +49,16 @@ const reactions =[
   {reactionBody:"heart eye thing", username: "jeff"},
   {reactionBody:"delete this", username: "lisa"},
   {reactionBody:"promote this", username: "adamant"},
-
 ]
 
 
   await User.collection.insertMany(users);
-  await Thought.collection.insertMany(thoughts);
+  // await Thought.collection.insertMany(thoughts);
   // await Reaction.collection.insertMany(reactions);
 
 
   // Log out the seed data to indicate what should appear in the database
-  console.table(students);
+  console.table(users);
   console.table(thoughts);
   // console.table(reactions);
 

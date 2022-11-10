@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+const moment = require("moment");
+
 
 // Schema to create a course model
 const reactionSchema = new Schema(
@@ -20,14 +22,16 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-    },
-    
+      get: (timeStamp) => { moment(timeStamp).format('DD MM, YYYY [at] hh:mm')}
+    },    
   },
   {
-   
-    id: false,
+    toJSON: {
+      getters: true
+    },
+    id: false
   }
-);
+ );
 
 const Reaction = model('reaction', reactionSchema);
 
