@@ -25,7 +25,6 @@ module.exports = {
           ? res.status(404).json({ message: 'No thought with that ID' })
           : res.json({
               thought,
-              // grade: await grade(req.params.thoughtId),
             })
       )
       .catch((err) => {
@@ -78,18 +77,18 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove assignment from a thought
+  // Remove reaction from a thought
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: {  reactionsId: req.params.reactionsId  } },
+      { $pull: {  reactions: {reactions: req.params.reactionsId}  } },
       { runValidators: true, new: true }
     )
       .then((thought) =>
         !thought
           ? res
               .status(404)
-              .json({ message: 'No thought found with that ID :(' })
+              .json({ message: 'No reaction found with that ID :(' })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
