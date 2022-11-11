@@ -53,7 +53,7 @@ const reactions =[
 
 
   await User.collection.insertMany(users);
-  // await Thought.collection.insertMany(thoughts);
+  await Thought.collection.insertMany(thoughts);
   // await Reaction.collection.insertMany(reactions);
 
 

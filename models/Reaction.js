@@ -1,15 +1,11 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 const moment = require("moment");
 
 
 // Schema to create a course model
 const reactionSchema = new Schema(
   {
-    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
-    reactionBody:{
+      reactionBody:{
       type: String,
       required : true,
       maxlength: 280,
@@ -33,6 +29,6 @@ const reactionSchema = new Schema(
   }
  );
 
-const Reaction = model('reaction', reactionSchema);
+// const Reaction = model('reaction', reactionSchema);
 
-module.exports = Reaction;
+module.exports = reactionSchema;
