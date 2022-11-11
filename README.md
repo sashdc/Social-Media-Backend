@@ -1,4 +1,4 @@
-#  Module 18 : NoSQL - Social Media API wiht NoSQL database
+#  Module 18 : NoSQL - Social Media API with NoSQL database
 
 ## Overview
 
