@@ -5,6 +5,10 @@ const moment = require("moment");
 // Schema to create a course model
 const reactionSchema = new Schema(
   {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
       reactionBody:{
       type: String,
       required : true,
